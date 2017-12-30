@@ -1,0 +1,1 @@
+exports.BasicTabs = require('./BasicTabs')

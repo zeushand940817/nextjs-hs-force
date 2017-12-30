@@ -1,0 +1,1 @@
+exports.BasicTab = require('./BasicDropdown')
