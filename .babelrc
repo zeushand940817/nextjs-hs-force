@@ -1,8 +1,9 @@
 {
   "presets": [
-    "next/babel"
+    "next/babel", "env"
   ],
   "plugins": [
-    "transform-decorators-legacy"
+    "transform-decorators-legacy",
+    "transform-class-properties"
   ]
 }

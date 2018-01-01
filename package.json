@@ -1,9 +1,11 @@
 {
   "name": "tracker",
-  "productName": "Tracker",
-  "main": "main/index.js",
+  "productName": "HS-Force",
+  "description": "Hearthstone trakcer",
   "version": "1.0.0",
-  "description": "",
+  "author": "Anton Svetin",
+  "license": "MIT",
+  "main": "main/index.js",
   "scripts": {
     "start": "electron .",
     "build": "next build renderer && next export renderer",
@@ -16,28 +18,27 @@
       "renderer/out"
     ]
   },
-  "author": "Anton Svetin",
-  "license": "ISC",
+  "devDependencies": {
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "electron": "1.7.5",
+    "electron-builder": "19.22.1",
+    "farseer": "git+https://github.com/hotantuna/farseer.git",
+    "next": "^4.2.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
   "dependencies": {
     "app-root-path": "^2.0.1",
     "babel-preset-env": "^1.6.0",
     "deckstrings": "^1.1.0",
     "electron-is-dev": "0.3.0",
-    "electron-next": "3.0.8",
+    "electron-next": "3.1.1",
     "electron-settings": "^3.1.4",
     "material-ui": "^1.0.0-beta.11",
     "material-ui-icons": "^1.0.0-beta.10",
     "mobx": "^3.3.0",
     "mobx-react": "^4.3.2",
     "standard": "^10.0.3"
-  },
-  "devDependencies": {
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "electron": "^1.6.11",
-    "electron-builder": "^19.19.1",
-    "farseer": "git+https://github.com/hotantuna/farseer.git",
-    "next": "^4.2.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
   }
 }

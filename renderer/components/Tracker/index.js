@@ -2,15 +2,14 @@ import {observer} from 'mobx-react'
 import {autorun} from 'mobx'
 import React, { Component } from 'react'
 import { LinearProgress } from 'material-ui/Progress'
-import {Grid, Typography} from 'material-ui'
+import Grid from 'material-ui/Grid'
+import Typography from 'material-ui/Typography'
+import {remote} from 'electron'
 import Button from 'material-ui/Button'
 
 import TrackingUtil from '../../stores/Tracker'
-import DeckRecipe from '../../stores/DeckRecipe'
-import Collections from '../../stores/Game/Collections'
 
 import BasicList from '../libs/List/BasicList'
-import BasicDropdown from '../libs/Dropdown/BasicDropdown'
 
 import CardTile from '../CardTile'
 import TrackerHeader from './TrackerHeader'
@@ -20,15 +19,14 @@ const Tracker = new TrackingUtil()
 global.t = Tracker
 
 autorun(()=>{
-  if( Tracker.status === 'TRACKING' ) {
-    let list = Tracker.deckList.length
-    let remote = require('electron').remote
-    let element = document.getElementById('__next')
+  if( Tracker.status === 'TRACKING' && remote ) {
+    let list = Tracker.deckList.length || 1
+    let height = 76 + (list * 30)
     let currentWindow = remote.getCurrentWindow()
     setTimeout(()=> {
       currentWindow.setSize(
         300, 
-        element.offsetHeight < 800 ? element.offsetHeight : 800
+        height < 800 ? height : 800
       )
     }, 100)
   }
@@ -75,7 +73,13 @@ class Tracking extends Component {
           />
         </Grid>
         <Grid container spacing={0}>
-          <TrackerFooter wins={Tracker.wins} loses={Tracker.loses}  tracker={Tracker} />
+          <TrackerFooter 
+            hand={Tracker.handSize}
+            deck={Tracker.deckSize}
+            wins={Tracker.wins}
+            loses={Tracker.loses}
+            tracker={Tracker}
+          />
         </Grid>
       </Grid>
     ) 
@@ -126,6 +130,7 @@ class Tracking extends Component {
   _onFileSelect (event) {
     event.preventDefault()
     const {path} = [ ...event.target.files ][0]
+    alert(path)
     Tracker.setLogFile(path)
   }
 

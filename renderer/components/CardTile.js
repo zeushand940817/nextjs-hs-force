@@ -138,7 +138,7 @@ class CardTile extends Component {
       position = '50% 25%'
     }
     return {
-      'backgroundImage': `url(/static/cards/${card.info.dbfId}.png)`,
+      'backgroundImage': `url(../static/cards/${card.info.dbfId}.png)`,
       'backgroundPosition': position
     }
   }

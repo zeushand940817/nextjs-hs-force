@@ -18,7 +18,7 @@ app.on('ready', async () => {
     maxHeight: 900,
     minHeight: 106,
     minWidth: 300,
-    frame: false,
+    frame: true,
     // transparent: true,
     webPreferences: {
       devTools: true

@@ -36,7 +36,7 @@ class TrackerHeader extends Component {
       }
     } else {
       let img = hero.info.cardClass.toLocaleLowerCase()
-      position.background = `linear-gradient(to right, #5c6bc0 0, rgba(255, 255, 255, 0) 95%), url(/static/classes/${img}.png) 10% 25%`
+      position.background = `linear-gradient(to right, #5c6bc0 0, rgba(255, 255, 255, 0) 95%), url(../static/classes/${img}.png) 10% 25%`
     }
     let textPosition = {alignSelf: 'flex-end'}
     if(!friendly) {

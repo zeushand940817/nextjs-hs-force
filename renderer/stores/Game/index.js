@@ -25,18 +25,21 @@ export default class {
   @observable teamFRIENDLY
   @observable teamOPPOSING
   @observable logMoves = []
+  @observable status
 
-  constructor(params) {
+  constructor() {
     this.gameId = Math.random()
     this.teamFRIENDLY = new Team('FRIENDLY')
     this.teamOPPOSING = new Team('OPPOSING')
-
   }
 
   @action
-  setPlayer(playerInfo) {
+  setPlayer = (playerInfo) => {
     if (this['team' + playerInfo.team]) {
       this['team' + playerInfo.team].setPlayer(playerInfo)
+    }
+    if (playerInfo.team === 'FRIENDLY' && playerInfo.status && !this.status) {
+      this.status = playerInfo.status
     }
   }
 
