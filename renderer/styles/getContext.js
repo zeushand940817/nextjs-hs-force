@@ -16,6 +16,7 @@ const colors = {
 
 const theme = createMuiTheme({
   palette: {
+    primary: blueGrey,
     CardTileMana: colors.CardTile,
     CardTileColor: colors.CardTile,
     CardTileColorHover: colors.CardTileHover,

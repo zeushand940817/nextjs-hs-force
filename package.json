@@ -20,7 +20,8 @@
     ]
   },
   "win": {
-    "target": "portable"
+    "target": "portable",
+    "icon": "build/icon.ico"
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",

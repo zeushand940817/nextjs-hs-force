@@ -37,9 +37,7 @@ class Tracking extends Component {
 
   render () {
     return (
-      <Grid container spacing={0}>
-        {this.renderContent()}
-      </Grid>
+      this.renderContent()
     )
   }
 
@@ -106,7 +104,7 @@ class Tracking extends Component {
    */
   renderFolderButton () {
     return (
-      <Grid container>
+      <Grid style={{padding: "20px 0px", background: '#78909C', '-webkit-app-region': 'drag'}} container spacing={0}>
         <Grid style={{textAlign: 'center'}} item xs={12}>
           <input
             accept=".txt"
@@ -118,8 +116,8 @@ class Tracking extends Component {
             onChange={this._onFileSelect}
           />
           <label htmlFor="selectFolder">
-            <Button raised component="span">
-              SELECT FOLDER WITH HS
+            <Button raised color="primary" component="span" style={{fontWeight: 'bold','-webkit-app-region': 'no-drag'}}>
+              Set Hearthstone folder
             </Button>
           </label>
         </Grid>
