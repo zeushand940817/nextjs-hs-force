@@ -3,12 +3,12 @@
 import { create, SheetsRegistry } from 'jss'
 import preset from 'jss-preset-default'
 import { createMuiTheme, createGenerateClassName } from 'material-ui/styles'
-import { blue, purple, orange, blueGrey, indigo } from 'material-ui/colors'
+import { blue, purple, orange, blueGrey } from 'material-ui/colors'
 
 const colors = {
-  CardTile: indigo[400],
-  CardTileHover: indigo[300],
-  CommonCard: blueGrey[700],
+  CardTile: blueGrey[600],
+  CardTileHover: blueGrey[400],
+  CommonCard: blueGrey[300],
   RareCard: blue[700],
   EpicCard: purple[700],
   LegendaryCard: orange[700]

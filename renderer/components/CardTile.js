@@ -17,18 +17,7 @@ const styles = theme => ({
     lineHeight: '29px',
     textAlign: 'center',
     color: 'white',
-    zIndex: -1,
-    '&:before': {
-      top: 0,
-      right: 0,
-      width: 0,
-      height: 0,
-      content: 'open-quote',
-      position: 'absolute',
-      borderRight: '10px solid',
-      borderTop: '35px solid transparent',
-      borderRightColor: 'inherit'
-    }
+    zIndex: -1
   },
   Image: {
     display: 'block',
@@ -37,18 +26,7 @@ const styles = theme => ({
     top: '0',
     right: '0',
     height: '100%',
-    borderColor: 'inherit',
-    '&:before': {
-      top: 0,
-      left: 0,
-      width: 0,
-      height: 0,
-      content: 'open-quote',
-      position: 'absolute',
-      borderTop: '35px solid',
-      borderRight: '10px solid transparent',
-      borderTopColor: 'inherit'
-    }
+    borderColor: 'inherit'
   },
   Count: {
     position: 'absolute',
@@ -138,7 +116,7 @@ class CardTile extends Component {
       position = '50% 25%'
     }
     return {
-      'backgroundImage': `url(../static/cards/${card.info.dbfId}.png)`,
+      'backgroundImage': `url(/static/cards/${card.info.dbfId}.png)`,
       'backgroundPosition': position
     }
   }

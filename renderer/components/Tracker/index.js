@@ -62,7 +62,7 @@ class Tracking extends Component {
     return (
       <Grid container spacing={0}>
         <Grid container spacing={0}>
-          <TrackerHeader tracker={Tracker} />
+          <TrackerHeader hero={Tracker.hero} />
         </Grid>
         <Grid container spacing={0}>
           <BasicList
@@ -130,7 +130,6 @@ class Tracking extends Component {
   _onFileSelect (event) {
     event.preventDefault()
     const {path} = [ ...event.target.files ][0]
-    alert(path)
     Tracker.setLogFile(path)
   }
 

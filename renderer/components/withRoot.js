@@ -6,7 +6,6 @@ import getContext from '../styles/getContext'
 const styles = theme => ({
   '@global': {
     html: {
-      background: theme.palette.background.default,
       WebkitFontSmoothing: 'antialiased', // Antialiasing.
       MozOsxFontSmoothing: 'grayscale' // Antialiasing.
     },

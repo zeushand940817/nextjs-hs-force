@@ -1,9 +1,9 @@
-import {action, observable, computed, autorun} from 'mobx';
+import mobx, {action, observable, computed, autorun} from 'mobx'
 import Game from './Game'
 import Collections from './Game/Collections'
 import DeckRecipe from './DeckRecipe'
 import Farseer from 'farseer'
-// import Store from 'electron-settings'
+import { remote } from 'electron'
 
 const FILE_PATH = '\/Hearthstone_Data\/output_log.txt'
 
@@ -15,7 +15,7 @@ export default class {
   @observable wins = 0
   @observable loses = 0
   @observable list = observable.map({})
-  @observable lastHero = null
+  @observable lastHero = false
 
   tracker
   statusOptions = {
@@ -25,17 +25,25 @@ export default class {
   }
   
   constructor() {
-    // let folder = 'D:\/Blizzard Games\/Hearthstone' //Store.get('hearthstone_file')
+    // let folder =  remote.app.Store.get('hearthstone_file')
     // if (folder) {
     //   this.setLogFile(folder)
     // }
     this.setStatus(this.statusOptions.missing)
-    autorun(this.buildTrackingList)
+    autorun(this._buildTrackingList)
+    autorun(this._onHeroChange)
   }
-  /**
-   * 
-   */
-  buildTrackingList = () => {
+
+  _onHeroChange = () => {
+    if (this.game && this.lastHero) {
+      let hero = this.game.friendlyHero
+      if (hero && this.lastHero && hero.info.cardClass !== this.lastHero.info.cardClass) {
+        this.resetList()
+      }
+    }
+  }
+
+  _buildTrackingList = () => {
     if(this.game) {
       let foundList = this.game.teamFRIENDLY.deckList
       let ids = Object.keys(this.game.teamFRIENDLY.deckList)
@@ -50,31 +58,31 @@ export default class {
   }
 
   @action
-  reset = () => {
+  resetList = () => {
     this.list = observable.map({})
+  }
+
+  @action
+  reset = () => {
+    this.resetList()
     this.wins = 0
     this.loses = 0
   }
 
   @action
   setLogFile = (folder) => {
-    try {
-      alert(Farseer)
-      if (!Farseer) {
-        return false
-      }
-      // Store.set('hearthstone_file', folder)
-      this.logFile = `${folder}${FILE_PATH}`
-      this.game = new Game()
-      this.tracker = new Farseer({ logFile: this.logFile })
-      this.tracker.on('game-start', this.newGame)
-      this.tracker.on('game-over', this.gameOver)
-      this.tracker.on('zone-change', this.cardPlayed)
-      this.tracker.start()
-      this.setStatus(this.statusOptions.tracking)
-    } catch (err) {
-      alert(err)
+    if (!Farseer) {
+      return false
     }
+    // remote.app.Store.set('hearthstone_file', folder)
+    this.logFile = `${folder}${FILE_PATH}`
+    this.game = new Game()
+    this.tracker = new Farseer({ logFile: this.logFile, customDir: remote.app.customDir })
+    this.tracker.on('game-start', this.newGame)
+    this.tracker.on('game-over', this.gameOver)
+    this.tracker.on('zone-change', this.cardPlayed)
+    this.tracker.start()
+    this.setStatus(this.statusOptions.tracking)
   }
 
   /**
@@ -111,6 +119,7 @@ export default class {
       } else {
         this.gameLost()
       }
+      this.lastHero = mobx.toJS(this.game.friendlyHero)
       this.game = new Game()
     }
   }
@@ -170,7 +179,12 @@ export default class {
   }
 
   @computed get hero () {
-
+    if (this.info.heroes) {
+      return  this.game.heroes
+    } else if (this.game.friendlyHero) {
+      return this.game.friendlyHero 
+    }
+    return this.lastHero
   }
 
   @computed get deckSize () {
