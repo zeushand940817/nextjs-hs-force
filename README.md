@@ -6,4 +6,4 @@ Hearthstone tracker in Electron/NextJS/React
 
 [HS Force for Mac .dmg](https://drive.google.com/open?id=1Fagf-TUSJI65pThWftBLd2L1_8HFPzE4)
 
-[HS Force for Mac .zip]()
+[HS Force for Mac .zip](https://drive.google.com/open?id=1A3TedfbyCnZuLr68KPwIlsx2PvmBN74T)
