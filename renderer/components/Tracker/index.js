@@ -6,6 +6,7 @@ import Grid from 'material-ui/Grid'
 import Typography from 'material-ui/Typography'
 import {remote} from 'electron'
 import Button from 'material-ui/Button'
+import os from 'os'
 
 import TrackingUtil from '../../stores/Tracker'
 
@@ -105,22 +106,38 @@ class Tracking extends Component {
   renderFolderButton () {
     return (
       <Grid style={{padding: "20px 0px", background: '#78909C', WebkitAppRegion: 'drag'}} container spacing={0}>
-        <Grid style={{textAlign: 'center'}} item xs={12}>
-          <input
-            accept=".txt"
-            id="selectFolder"
-            type="file"
-            style={{display: 'none'}}
-            multiple={false}
-            webkitdirectory="true"
-            onChange={this._onFileSelect}
-          />
-          <label htmlFor="selectFolder">
-            <Button raised color="primary" component="span" style={{fontWeight: 'bold','-webkit-app-region': 'no-drag'}}>
-              Set Hearthstone folder
-            </Button>
-          </label>
-        </Grid>
+        {/^win/.test(os.platform()) ? this._winButton() : this._macButton()}
+      </Grid>
+    )
+  }
+
+  _macButton () {
+    <Grid style={{textAlign: 'center'}} item xs={12}>
+      <label htmlFor="selectFolder">
+        <Button raised color="primary" onClick={Tracker.setLogFile} component="span" style={{fontWeight: 'bold','-webkit-app-region': 'no-drag'}}>
+          Start tracking
+        </Button>
+      </label>
+    </Grid>
+  }
+
+  _winButton () {
+    return (
+      <Grid style={{textAlign: 'center'}} item xs={12}>
+        <input
+          accept=".txt"
+          id="selectFolder"
+          type="file"
+          style={{display: 'none'}}
+          multiple={false}
+          webkitdirectory="true"
+          onChange={this._onFileSelect}
+        />
+        <label htmlFor="selectFolder">
+          <Button raised color="primary" component="span" style={{fontWeight: 'bold','-webkit-app-region': 'no-drag'}}>
+            Set Hearthstone folder
+          </Button>
+        </label>
       </Grid>
     )
   }
