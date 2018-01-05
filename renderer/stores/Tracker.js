@@ -7,7 +7,7 @@ import { remote } from 'electron'
 import os from 'os'
 
 const WIN_FILE_PATH = '\/Hearthstone_Data\/output_log.txt'
-const MAC_FILE_PATH = '\/Library\/Logs\/Unity\/Player.log'
+const MAC_FILE_PATH = process.env.HOME+'\/Library\/Logs\/Unity\/Player.log'
 
 
 export default class {
