@@ -112,13 +112,13 @@ class Tracking extends Component {
   }
 
   _macButton () {
-    <Grid style={{textAlign: 'center'}} item xs={12}>
-      <label htmlFor="selectFolder">
-        <Button raised color="primary" onClick={Tracker.setLogFile} component="span" style={{fontWeight: 'bold','-webkit-app-region': 'no-drag'}}>
+    return (
+      <Grid style={{textAlign: 'center'}} item xs={12}>
+        <Button raised color="primary" onClick={Tracker.setLogFile} style={{fontWeight: 'bold','-webkit-app-region': 'no-drag'}}>
           Start tracking
         </Button>
-      </label>
-    </Grid>
+      </Grid>
+    )
   }
 
   _winButton () {
