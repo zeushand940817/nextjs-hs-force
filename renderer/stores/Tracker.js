@@ -73,12 +73,11 @@ export default class {
     if (!Farseer) {
       return false
     }
-    let FILE_PATH = WIN_FILE_PATH
+    let FILE_PATH = `${folder}${WIN_FILE_PATH}` 
     if(!/^win/.test(os.platform())){
       FILE_PATH = MAC_FILE_PATH
     }
-    console.log(FILE_PATH)
-    this.logFile = `${folder}${FILE_PATH}`
+    this.logFile = FILE_PATH
     this.game = new Game()
     this.tracker = new Farseer({ logFile: this.logFile, customDir: remote.app.customDir })
     this.tracker.on('game-start', this.newGame)
