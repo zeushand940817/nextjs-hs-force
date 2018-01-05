@@ -5,7 +5,9 @@ import DeckRecipe from './DeckRecipe'
 import Farseer from 'farseer'
 import { remote } from 'electron'
 
-const FILE_PATH = '\/Hearthstone_Data\/output_log.txt'
+//const FILE_PATH = '\/Hearthstone_Data\/output_log.txt'
+const FILE_PATH = '\/Library\/Logs\/Unity\/Player.log'
+
 
 export default class {
   @observable status
