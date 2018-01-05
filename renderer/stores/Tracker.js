@@ -25,10 +25,6 @@ export default class {
   }
   
   constructor() {
-    // let folder =  remote.app.Store.get('hearthstone_file')
-    // if (folder) {
-    //   this.setLogFile(folder)
-    // }
     this.setStatus(this.statusOptions.missing)
     autorun(this._buildTrackingList)
     autorun(this._onHeroChange)
@@ -74,7 +70,6 @@ export default class {
     if (!Farseer) {
       return false
     }
-    // remote.app.Store.set('hearthstone_file', folder)
     this.logFile = `${folder}${FILE_PATH}`
     this.game = new Game()
     this.tracker = new Farseer({ logFile: this.logFile, customDir: remote.app.customDir })

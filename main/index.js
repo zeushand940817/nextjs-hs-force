@@ -6,14 +6,12 @@ const { BrowserWindow, app } = require('electron')
 const isDev = require('electron-is-dev')
 const prepareNext = require('electron-next')
 const { resolve } = require('app-root-path')
-// const Store = require('electron-settings')
 
 require('electron-debug')({enabled: isDev, showDevTools: isDev})
 
 let mainWindow
 
 app.customDir = isDev ? false : app.getAppPath() + '/node_modules/farseer/lib'
-// app.Store = Store
 // Prepare the renderer once the app is ready
 
 app.on('ready', async () => {
