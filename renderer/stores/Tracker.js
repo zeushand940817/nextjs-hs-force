@@ -4,9 +4,10 @@ import Collections from './Game/Collections'
 import DeckRecipe from './DeckRecipe'
 import Farseer from 'farseer'
 import { remote } from 'electron'
+import os from 'os'
 
-//const FILE_PATH = '\/Hearthstone_Data\/output_log.txt'
-const FILE_PATH = '\/Library\/Logs\/Unity\/Player.log'
+const WIN_FILE_PATH = '\/Hearthstone_Data\/output_log.txt'
+const MAC_FILE_PATH = '\/Library\/Logs\/Unity\/Player.log'
 
 
 export default class {
@@ -72,6 +73,11 @@ export default class {
     if (!Farseer) {
       return false
     }
+    let FILE_PATH = WIN_FILE_PATH
+    if(!/^win/.test(os.platform())){
+      FILE_PATH = MAC_FILE_PATH
+    }
+    console.log(FILE_PATH)
     this.logFile = `${folder}${FILE_PATH}`
     this.game = new Game()
     this.tracker = new Farseer({ logFile: this.logFile, customDir: remote.app.customDir })

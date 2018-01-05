@@ -11,7 +11,7 @@ const styles = theme => ({
     fontFamily: '"Montserrat", sans-serif',
     color: 'white',
     padding: '5px',
-    '-webkit-app-region': 'drag',
+    WebkitAppRegion: 'drag',
     backgroundColor: theme.palette.CardTileMana
   }
 })

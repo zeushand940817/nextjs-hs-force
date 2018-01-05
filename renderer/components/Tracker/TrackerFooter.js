@@ -7,7 +7,7 @@ import { withStyles, withTheme } from 'material-ui/styles'
 const style = theme => ({
   Details: {
     textAlign: 'center',
-    '-webkit-app-region': 'drag',
+    WebkitAppRegion: 'drag',
     backgroundColor: theme.palette.CardTileMana,
     color: 'white'
   },
@@ -19,7 +19,7 @@ const style = theme => ({
   },
   IconButton: {
     height: '24px',
-    '-webkit-app-region': 'no-drag'
+    WebkitAppRegion: 'no-drag'
   }
 })
 

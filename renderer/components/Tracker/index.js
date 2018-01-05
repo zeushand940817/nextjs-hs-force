@@ -104,7 +104,7 @@ class Tracking extends Component {
    */
   renderFolderButton () {
     return (
-      <Grid style={{padding: "20px 0px", background: '#78909C', '-webkit-app-region': 'drag'}} container spacing={0}>
+      <Grid style={{padding: "20px 0px", background: '#78909C', WebkitAppRegion: 'drag'}} container spacing={0}>
         <Grid style={{textAlign: 'center'}} item xs={12}>
           <input
             accept=".txt"
