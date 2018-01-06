@@ -1,6 +1,7 @@
 import React from 'react'
 import { withStyles, MuiThemeProvider } from 'material-ui/styles'
 import getContext from '../styles/getContext'
+import NotificationMsg from './NotificationMsg'
 
 // Apply some reset
 const styles = theme => ({
@@ -49,6 +50,7 @@ function withRoot (Component) {
         >
           <AppWrapper>
             <Component {...this.props} />
+            <NotificationMsg />
           </AppWrapper>
         </MuiThemeProvider>
       )

@@ -2,6 +2,7 @@ import mobx, {action, observable, computed, autorun} from 'mobx'
 import Game from './Game'
 import Collections from './Game/Collections'
 import DeckRecipe from './DeckRecipe'
+import Notification from './Notification'
 import Farseer from 'farseer'
 import { remote } from 'electron'
 import os from 'os'
@@ -79,12 +80,26 @@ export default class {
     }
     this.logFile = FILE_PATH
     this.game = new Game()
-    this.tracker = new Farseer({ logFile: this.logFile, customDir: remote.app.customDir })
+      this.tracker = new Farseer({ logFile: this.logFile, customDir: remote.app.customDir })
     this.tracker.on('game-start', this.newGame)
     this.tracker.on('game-over', this.gameOver)
     this.tracker.on('zone-change', this.cardPlayed)
-    this.tracker.start()
-    this.setStatus(this.statusOptions.tracking)
+    try{
+      this.tracker.start()
+      this.setStatus(this.statusOptions.tracking)
+      document.addEventListener('paste', function(ClipboardEvent) {
+        let value = ClipboardEvent.clipboardData.getData("text")
+        try{
+          this.setDeckList(value.replace(/[#*].*\n{0,}/g, ""))
+          Notification.setMessage('Deck loaded!')
+        } catch (err) {
+          Notification.setMessage('Can not load!')
+        }
+      }.bind(this))
+    } catch (err) {
+      let notify = err.message.replace("ENOENT: no such file or directory, stat", 'Can not open file')
+      alert(notify)
+    }
   }
 
   /**
@@ -150,6 +165,7 @@ export default class {
   setDeckList = (string) => {
     let deck = DeckRecipe.convertListToCardIds(string)
     this.info = deck
+    this.lastHero = deck.heroes
     this.list = deck.cards
     this.wins = 0
     this.loses = 0
@@ -157,11 +173,13 @@ export default class {
 
   @action
   gameWon () {
+    Notification.setMessage("GAME WON")
     this.wins++
   }
 
   @action
   gameLost () {
+    Notification.setMessage("GAME LOST")
     this.loses++
   }
   /**
@@ -181,10 +199,10 @@ export default class {
   }
 
   @computed get hero () {
-    if (this.info.heroes) {
-      return  this.game.heroes
-    } else if (this.game.friendlyHero) {
+    if (this.game.friendlyHero) {
       return this.game.friendlyHero 
+    } else if (this.info.heroes && !this.lastHero) {
+      return  this.info.heroes
     }
     return this.lastHero
   }

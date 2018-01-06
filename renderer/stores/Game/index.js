@@ -13,13 +13,6 @@ const ZONES = [
   "GRAVEYARD"
 ]
 
-const WATCHING_ZONES = [
-  "DECK",
-  "HAND",
-  "PLAY",
-  "GRAVEYARD"
-]
-
 export default class {
   @observable gameId
   @observable teamFRIENDLY
@@ -27,9 +20,9 @@ export default class {
   @observable logMoves = []
   @observable status
 
-  constructor() {
+  constructor(list) {
     this.gameId = Math.random()
-    this.teamFRIENDLY = new Team('FRIENDLY')
+    this.teamFRIENDLY = new Team('FRIENDLY', list)
     this.teamOPPOSING = new Team('OPPOSING')
   }
 
@@ -48,27 +41,15 @@ export default class {
     this.logMoves.push(moveInfo)
     let card = new Card(moveInfo)
     if ( this['team' + moveInfo.fromTeam] ) {
-      this['team' + moveInfo.fromTeam].zones[moveInfo.fromZone].remove(card)
+      this['team' + moveInfo.fromTeam].removeCard(moveInfo.fromZone, card)
     }
     if( this['team' + moveInfo.toTeam] ) {
-      this['team' + moveInfo.toTeam].zones[moveInfo.toZone].add(card)
+      this['team' + moveInfo.toTeam].addCard(moveInfo.toZone, card)
     }
-  }
-
-  get getZones () {
-    return WATCHING_ZONES
-  }
-
-  get teamFRIENDLY () {
-    return this.teamFRIENDLY
-  }
-  
-  get teamOPPOSING () {
-    return this.teamOPPOSING
   }
 
   getHero(team) {
-    return this[team].zones["PLAY (Hero)"].entites.values().next().value
+    return this[team].HERO.entites.values().next().value
   }
   
   get friendlyHero() {

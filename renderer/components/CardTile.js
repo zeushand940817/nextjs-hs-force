@@ -1,5 +1,7 @@
+import {observer} from 'mobx-react'
 import React, { Component } from 'react'
 import {Grid, ListItemText} from 'material-ui'
+import Tooltip from 'material-ui/Tooltip'
 
 import { withStyles, withTheme } from 'material-ui/styles'
 
@@ -47,9 +49,9 @@ const styles = theme => ({
     left: 0,
     width: '100%',
     height: '100%',
-    background: 'darkslategray',
+    background: '#263238',
     zIndex: 2,
-    opacity: 0.5
+    opacity: 0.5555
   }
 })
 
@@ -62,6 +64,7 @@ const textStyle = {
   paddingLeft: '20px'
 }
 
+@observer
 @withStyles(styles) @withTheme()
 class CardTile extends Component {
   render () {

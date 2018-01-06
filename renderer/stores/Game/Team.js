@@ -21,9 +21,11 @@ export default class {
   @observable name
   @observable player
   @observable zones = {}
+  @observable entityList = observable.map({})
 
   constructor(name) {
     this.name = Math.random()
+    this.entityList = observable.map({})
     this.setZones()
   }
 
@@ -37,6 +39,24 @@ export default class {
   @action
   setPlayer(playerInfo) {
     this.player = playerInfo
+  }
+
+  @action
+  removeCard(zone, card) {
+    this.zones[zone].remove(card)
+    this._logCard(card)
+  }
+
+  @action
+  addCard(zone, card) {
+    this.zones[zone].add(card)
+    this._logCard(card)
+  }
+
+  _logCard(data) {
+    if(data.entityId && !this.entityList.get(data.entityId)) {
+      this.entityList.set(data.entityId, data.info)
+    }
   }
   
   get HERO () {
@@ -62,25 +82,21 @@ export default class {
   @computed
   get deckList () {
     let list = {}
+    let size = this.zones.DECK.entites.size
     let initialCards = []
     if (this.zones.DECK.logMoves) {
       initialCards = this.zones.DECK.logMoves.slice(0, 30)
     }
-    let size = this.zones.DECK.entites.size
     for( let entityID of initialCards) {
-      for( let zone of ZONES ) {
-        if (this.zones[zone]) {
-          let card = this.zones[zone].get(entityID)
-          if (card && card.info) {
-            if (!list[card.cardId]) {
-              list[card.cardId] = {
-                info: card.info,
-                count: 0
-              }
-            }
-            list[card.cardId].count++
+      let entity = this.entityList.get(entityID)
+      if (entity){
+        if(!list[entity.id]) {
+          list[entity.id] = {
+            info: entity,
+            count: 0
           }
         }
+        list[entity.id].count++
       }
     }
     return list

@@ -15,18 +15,6 @@ export default class {
 
   }
 
-  @action
-  updateCard(params){
-    this.cardName = params.cardName
-    this.cardId = params.cardId
-    this.entityId = params.entityId
-    this.info = Collections.findCardById(params.cardId)
-  }
-
-  isEqual(card){
-    return card.entityId == this.entityId
-  }
-
   get toObject() {
     return {
       cardName: this.cardName,

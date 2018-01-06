@@ -2,7 +2,7 @@
   "name": "HS-Force",
   "productName": "HS-Force",
   "description": "Hearthstone trakcer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Anton Svetin",
   "license": "MIT",
   "main": "main/index.js",
